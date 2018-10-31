@@ -36,7 +36,7 @@ function rotateAirplane(){
     if(rotateY[0])
       geometry.rotateY(rotateY[1] * Math.PI / 180);
     if(rotateX[0])
-      geometry.rotateX(rotateY[1] * Math.PI / 180);
+      geometry.rotateX(rotateX[1] * Math.PI / 180);
 }
 
 function onResize(){
@@ -51,7 +51,7 @@ function onKeyDown(event) {
       case 38: //UP
           if(!rotateX[0]){
             rotateX[0] = true;
-            rotateX[1] = 1;
+            rotateX[1] = -1;
           }
           break;
       case 37: //LEFT
@@ -63,7 +63,7 @@ function onKeyDown(event) {
       case 40: //DOWN
           if(!rotateX[0]){
             rotateX[0] = true;
-            rotateX[1] = -1;
+            rotateX[1] = 1;
           }
           break;
       case 39: //RIGHT
