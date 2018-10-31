@@ -17,7 +17,7 @@ function createAirplane(){
   geometry.vertices.push(new THREE.Vector3(0,1,0), new THREE.Vector3(0,1.5,-2), new THREE.Vector3(0,3,-2)); //vertical flap
   geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0,2.25,-1.75), new THREE.Vector3(1,2.05,-1.65)); //horizontal flap 1
   geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0, 2.25, -1.75), new THREE.Vector3(-1,2.05, -1.65)); //horizontal flap 2
-  geometry.vertices.push(new THREE.Vector3(-4/5,1.85,0.50), new THREE.Vector3(4/5,1.85,0.50), new THREE.Vector3(0, 0.2, 3.2), new THREE.Vector3(-4/5,0.90,0.50), new THREE.Vector3(4/5,0.90,0.50)); //cockpit
+  geometry.vertices.push(new THREE.Vector3(-4/5,1.85,0.50), new THREE.Vector3(4/5,1.85,0.50), new THREE.Vector3(0, 0.2, 3.2), new THREE.Vector3(-4/5,0.88,0.50), new THREE.Vector3(4/5,0.88,0.50)); //cockpit
 
   var face = new THREE.Face3(0,1,2);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
