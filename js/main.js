@@ -5,13 +5,13 @@ var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
-var plane; 
+var d_light = true;
+var directionalLight; // DirectionalLight = sun light;
 
 function animate(){
     if(rotateY[0] || rotateX[0])
       rotateAirplane();
     render();
-    createLight();
     updateMaterial();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
@@ -34,10 +34,9 @@ function render(){
 }
 
 function createLight(){
-  if(day)
-    scene.add(directionalLight);
-  else
-    scene.remove(directionalLight);
+  directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  directionalLight.position.set(20, 20, 20);
+  scene.add(directionalLight);
 }
 
 function updateMaterial(){
@@ -61,7 +60,7 @@ function rotateAirplane(){
     if(rotateY[0])
       geometry.rotateY(rotateY[1] * Math.PI / 180);
     if(rotateX[0])
-      geometry.rotateX(rotateY[1] * Math.PI / 180);
+      geometry.rotateX(rotateX[1] * Math.PI / 180);
 }
 
 function onResize(){
@@ -76,7 +75,7 @@ function onKeyDown(event) {
       case 38: //UP
           if(!rotateX[0]){
             rotateX[0] = true;
-            rotateX[1] = 1;
+            rotateX[1] = -1;
           }
           break;
       case 37: //LEFT
@@ -88,7 +87,7 @@ function onKeyDown(event) {
       case 40: //DOWN
           if(!rotateX[0]){
             rotateX[0] = true;
-            rotateX[1] = -1;
+            rotateX[1] = 1;
           }
           break;
       case 39: //RIGHT
@@ -97,9 +96,6 @@ function onKeyDown(event) {
             rotateY[1] = 1;
           }
           break;
-      case 78: //sun
-        day = !day;
-        break;
       case 76: //ilumination calculus
         break;
       case 71: //Gourand/Phong
@@ -121,6 +117,9 @@ function onKeyDown(event) {
               }
           });
           break;
+      case 78: //Tecla 'n' -> alternar entre o modo dia e o modo noite
+          directionalLight.visible = !d_light;
+          d_light = !d_light;
       default: break;
     }
 }
@@ -158,11 +157,9 @@ function init(){
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
-    createScene();
 
+    createScene();
     createCamera();
-    directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
-    directionalLight.position.set(20, 20, 20);
     createLight();
     render();
 
