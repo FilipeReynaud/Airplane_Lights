@@ -17,7 +17,6 @@ function createScene(){
     createAirplane();
     addSpotlights();
     scene.add(new THREE.AxesHelper( 20 ));
-    console.log(scene);
 }
 
 function createCamera(){
@@ -37,7 +36,6 @@ function createLight(){
 }
 
 function addSpotlights() {
-    //console.log(airplane.mesh);
     scene.add(spotlight(10, 0, 10, 0xffffff));
     scene.add(spotlight(-10, 0, 10, 0xffffff));
     scene.add(spotlight(10, 0, -10, 0xffffff));
