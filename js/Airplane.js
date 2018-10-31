@@ -87,11 +87,16 @@ function createAirplane(){
 
   console.log(geometry);
 
-  var material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  mm.push(material_lambert);
+  mm.push(material_phong);
 
-  var mesh = new THREE.Mesh(geometry,material)
-  material.FlatShading = true;
-  material.FlatShading = false;
+  mesh = new THREE.Mesh(geometry,mm[0]);
+  mm[0].FlatShading = true;
+  mm[0].FlatShading = false;
+  mm[1].FlatShading = true;
+  mm[1].FlatShading = false;
   geometry.normalsNeedUpdate = true;
 
   scene.add(mesh);

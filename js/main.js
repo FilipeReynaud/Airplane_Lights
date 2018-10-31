@@ -1,5 +1,7 @@
-var camera, scene, airplane, directionalLight;
+var camera, scene, airplane, directionalLight, mesh;
 var day = true;
+var mm = [];
+var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
@@ -10,6 +12,7 @@ function animate(){
       rotateAirplane();
     render();
     createLight();
+    updateMaterial();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
@@ -18,7 +21,6 @@ function createScene(){
     createAirplane();
     addSpotlights();
     scene.add(new THREE.AxesHelper( 20 ));
-    console.log(scene);
 }
 
 function createCamera(){
@@ -32,11 +34,19 @@ function render(){
 }
 
 function createLight(){
-  directionalLight.position.set(20, 20, 20);
   if(day)
     scene.add(directionalLight);
   else
     scene.remove(directionalLight);
+}
+
+function updateMaterial(){
+  if(lambert){
+    mesh.material = mm[0];
+  }
+  else{
+    mesh.material = mm[1];
+  }
 }
 
 function addSpotlights() {
@@ -88,12 +98,13 @@ function onKeyDown(event) {
           }
           break;
       case 78: //sun
-      console.log(scene);
         day = !day;
         break;
       case 76: //ilumination calculus
         break;
       case 71: //Gourand/Phong
+        lambert = !lambert;
+        console.log(lambert);
         break;
       case 49: //spotlight 1
         break;
@@ -151,6 +162,7 @@ function init(){
 
     createCamera();
     directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
+    directionalLight.position.set(20, 20, 20);
     createLight();
     render();
 
