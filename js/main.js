@@ -31,9 +31,9 @@ function render(){
 }
 
 function createLight(){
-    directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
-    directionalLight.position.set(20, 20, 20);
-    scene.add(directionalLight);
+  directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+  directionalLight.position.set(20, 20, 20);
+  scene.add(directionalLight);
 }
 
 function addSpotlights() {
@@ -84,6 +84,18 @@ function onKeyDown(event) {
             rotateY[1] = 1;
           }
           break;
+      case 76: //ilumination calculus
+        break;
+      case 71: //Gourand/Phong
+        break;
+      case 49: //spotlight 1
+        break;
+      case 50: //spotlight 2
+        break;
+      case 51: //spotlight 3
+        break;
+      case 52: //spotlight 4
+        break;
       case 65: //Tecla 'a' -> alternar entre wireframe e solid color
           scene.traverse(function (node){
               if(node instanceof THREE.Mesh){
@@ -131,8 +143,8 @@ function init(){
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
-    createScene();
 
+    createScene();
     createCamera();
     createLight();
     render();
