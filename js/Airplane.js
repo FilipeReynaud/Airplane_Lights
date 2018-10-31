@@ -11,12 +11,13 @@ class Airplane extends THREE.Geometry{
 function createAirplane(){
   var geometry = new THREE.Geometry();
 
-  geometry.vertices.push(new THREE.Vector3(-2, 2, -4),new THREE.Vector3(2, 2, -4), new THREE.Vector3(0, 0, 4), new THREE.Vector3(2, -2, -4), new THREE.Vector3(-2, -2, -4));
-  geometry.vertices.push(new THREE.Vector3(1,1,0), new THREE.Vector3(1,-1,0), new THREE.Vector3(4,0,0));
-  geometry.vertices.push(new THREE.Vector3(-1,1,0), new THREE.Vector3(-1,-1,0), new THREE.Vector3(-4,0,0));
-  geometry.vertices.push(new THREE.Vector3(0,1,0), new THREE.Vector3(0,1.5,-2), new THREE.Vector3(0,3,-2));
-  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0,2.25,-1.75), new THREE.Vector3(1,2.05,-1.65));
-  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0, 2.25, -1.75), new THREE.Vector3(-1,2.05, -1.65));
+  geometry.vertices.push(new THREE.Vector3(-2, 2, -4),new THREE.Vector3(2, 2, -4), new THREE.Vector3(0, 0, 4), new THREE.Vector3(2, -2, -4), new THREE.Vector3(-2, -2, -4)); //main vertices
+  geometry.vertices.push(new THREE.Vector3(1,1,0), new THREE.Vector3(1,-1,0), new THREE.Vector3(4,0,0)); //wing 1
+  geometry.vertices.push(new THREE.Vector3(-1,1,0), new THREE.Vector3(-1,-1,0), new THREE.Vector3(-4,0,0)); //wing 2
+  geometry.vertices.push(new THREE.Vector3(0,1,0), new THREE.Vector3(0,1.5,-2), new THREE.Vector3(0,3,-2)); //vertical flap
+  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0,2.25,-1.75), new THREE.Vector3(1,2.05,-1.65)); //horizontal flap 1
+  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0, 2.25, -1.75), new THREE.Vector3(-1,2.05, -1.65)); //horizontal flap 2
+  geometry.vertices.push(new THREE.Vector3(-4/5,1.85,0.50), new THREE.Vector3(4/5,1.85,0.50), new THREE.Vector3(0, 0.2, 3.2), new THREE.Vector3(-4/5,0.90,0.50), new THREE.Vector3(4/5,0.90,0.50)); //cockpit
 
   var face = new THREE.Face3(0,1,2);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
@@ -59,6 +60,26 @@ function createAirplane(){
   geometry.faces.push(face);
 
   face = new THREE.Face3(17,18,19);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(20,21,22);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(22, 20, 23);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(22, 21, 24);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(21, 20, 24);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(20, 23, 24);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
   geometry.faces.push(face);
 
