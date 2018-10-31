@@ -1,4 +1,5 @@
 var camera, scene, airplane, directionalLight;
+var day = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
@@ -7,13 +8,13 @@ function animate(){
     if(rotateY[0] || rotateX[0])
       rotateAirplane();
     render();
+    createLight();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
 function createScene(){
     scene = new THREE.Scene();
     createAirplane();
-    console.log(airplane);
     scene.add(new THREE.AxesHelper( 20 ));
 }
 
@@ -27,9 +28,11 @@ function render(){
 }
 
 function createLight(){
-  directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
   directionalLight.position.set(20, 20, 20);
-  scene.add(directionalLight);
+  if(day)
+    scene.add(directionalLight);
+  else
+    scene.remove(directionalLight);
 }
 
 function rotateAirplane(){
@@ -72,6 +75,22 @@ function onKeyDown(event) {
             rotateY[1] = 1;
           }
           break;
+      case 78: //sun
+      console.log(scene);
+        day = !day;
+        break;
+      case 76: //ilumination calculus
+        break;
+      case 71: //Gourand/Phong
+        break;
+      case 49: //spotlight 1
+        break;
+      case 50: //spotlight 2
+        break;
+      case 51: //spotlight 3
+        break;
+      case 52: //spotlight 4
+        break;
       case 65: //Tecla 'a' -> alternar entre wireframe e solid color
           scene.traverse(function (node){
               if(node instanceof THREE.Mesh){
@@ -119,6 +138,7 @@ function init(){
 
     createScene();
     createCamera();
+    directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
     createLight();
     render();
 

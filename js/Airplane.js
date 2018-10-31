@@ -87,8 +87,8 @@ function createAirplane(){
 
   console.log(geometry);
 
-  var material = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-  var mesh = new THREE.Mesh(geometry,material)
+  var material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  var mesh = new THREE.Mesh(geometry,material);
 
   scene.add(mesh);
 
