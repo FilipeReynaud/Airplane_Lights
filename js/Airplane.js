@@ -1,5 +1,5 @@
 var fuselageMaterial, wingMaterial, propellerMaterial, stabilizersMaterial, wingShape, horizontalStabilizer, verticalStabilizer;
-var fuselage, wings, propellers, stabilizers, cockpit, extrudeSettings;
+var fuselage, wings, propellers, stabilizers, cockpit, extrudeSettings, geometry;
 
 class Airplane extends THREE.Geometry{
   constructor(){
@@ -9,7 +9,7 @@ class Airplane extends THREE.Geometry{
 }
 
 function createAirplane(){
-  var geometry = new THREE.Geometry();
+  geometry = new THREE.Geometry();
 
   geometry.vertices.push(new THREE.Vector3(-2, 2, -4),new THREE.Vector3(2, 2, -4), new THREE.Vector3(0, 0, 4), new THREE.Vector3(2, -2, -4), new THREE.Vector3(-2, -2, -4)); //main vertices
   geometry.vertices.push(new THREE.Vector3(1,1,0), new THREE.Vector3(1,-1,0), new THREE.Vector3(4,0,0)); //wing 1
