@@ -30,9 +30,9 @@ function render(){
 }
 
 function createLight(){
-  //directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
-  //directionalLight.position.set(20, 20, 20);
-  //scene.add(directionalLight);
+    directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
+    directionalLight.position.set(20, 20, 20);
+    scene.add(directionalLight);
 }
 
 function addSpotlights() {
