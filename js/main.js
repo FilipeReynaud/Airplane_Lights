@@ -12,7 +12,6 @@ function animate(){
 
 function createScene(){
     scene = new THREE.Scene();
-    airplane = new Airplane();
     createAirplane();
     console.log(airplane);
     scene.add(new THREE.AxesHelper( 20 ));
@@ -35,9 +34,9 @@ function createLight(){
 
 function rotateAirplane(){
     if(rotateY[0])
-      airplane.rotateOnAxis(new THREE.Vector3(0, 1, 0), rotateY[1] * Math.PI / 180);
+      geometry.rotateY(rotateY[1] * Math.PI / 180);
     if(rotateX[0])
-      airplane.rotateOnAxis(new THREE.Vector3(1, 0, 0), rotateX[1] * Math.PI / 180);
+      geometry.rotateX(rotateY[1] * Math.PI / 180);
 }
 
 function onResize(){
