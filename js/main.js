@@ -4,7 +4,6 @@ var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
 
 function animate(){
-    rotatePropelers();
     if(rotateY[0] || rotateX[0])
       rotateAirplane();
     render();
@@ -15,12 +14,13 @@ function createScene(){
     scene = new THREE.Scene();
     airplane = new Airplane();
     createAirplane();
-    scene.add(new THREE.AxesHelper( 40 ));
+    console.log(airplane);
+    scene.add(new THREE.AxesHelper( 20 ));
 }
 
 function createCamera(){
     camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(250, 2, 20);
+    camera.position.set(5, 2, 15);
     camera.lookAt(scene.position);}
 
 function render(){
@@ -31,10 +31,6 @@ function createLight(){
   directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
   directionalLight.position.set(20, 20, 20);
   scene.add(directionalLight);
-}
-
-function rotatePropelers(){
-  airplane.rotatePropelers();
 }
 
 function rotateAirplane(){
