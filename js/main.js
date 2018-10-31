@@ -3,6 +3,7 @@ var day = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
+var plane; 
 
 function animate(){
     if(rotateY[0] || rotateX[0])
@@ -15,13 +16,16 @@ function animate(){
 function createScene(){
     scene = new THREE.Scene();
     createAirplane();
+    addSpotlights();
     scene.add(new THREE.AxesHelper( 20 ));
+    console.log(scene);
 }
 
 function createCamera(){
     camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(5, 2, 15);
-    camera.lookAt(scene.position);}
+    camera.position.set(25,25,25);
+    camera.lookAt(scene.position);
+}
 
 function render(){
     renderer.render(scene, camera);
@@ -33,6 +37,14 @@ function createLight(){
     scene.add(directionalLight);
   else
     scene.remove(directionalLight);
+}
+
+function addSpotlights() {
+    //console.log(airplane.mesh);
+    scene.add(spotlight(10, 0, 10, 0xffffff));
+    scene.add(spotlight(-10, 0, 10, 0xffffff));
+    scene.add(spotlight(10, 0, -10, 0xffffff));
+    scene.add(spotlight(-10, 0, -10, 0xffffff));
 }
 
 function rotateAirplane(){
@@ -135,8 +147,8 @@ function init(){
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
-
     createScene();
+
     createCamera();
     directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
     createLight();
