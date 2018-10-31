@@ -15,6 +15,8 @@ function createAirplane(){
   geometry.vertices.push(new THREE.Vector3(1,1,0), new THREE.Vector3(1,-1,0), new THREE.Vector3(4,0,0));
   geometry.vertices.push(new THREE.Vector3(-1,1,0), new THREE.Vector3(-1,-1,0), new THREE.Vector3(-4,0,0));
   geometry.vertices.push(new THREE.Vector3(0,1,0), new THREE.Vector3(0,1.5,-2), new THREE.Vector3(0,3,-2));
+  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0,2.25,-1.75), new THREE.Vector3(1,2.05,-1.65));
+  geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0, 2.25, -1.75), new THREE.Vector3(-1,2.05, -1.65));
 
   var face = new THREE.Face3(0,1,2);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
@@ -49,6 +51,14 @@ function createAirplane(){
   geometry.faces.push(face);
 
   face = new THREE.Face3(11,12,13);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(14,15,16);
+  face.vertexColors[0] = new THREE.Color(0xFFFF00);
+  geometry.faces.push(face);
+
+  face = new THREE.Face3(17,18,19);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
   geometry.faces.push(face);
 
