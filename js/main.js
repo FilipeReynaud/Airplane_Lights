@@ -1,4 +1,7 @@
-var camera, scene, airplane, directionalLight;
+var camera, scene, airplane, directionalLight, mesh;
+var day = true;
+var mm = [];
+var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
@@ -8,12 +11,15 @@ var spotlight2_bool = true;
 var spotlight3_bool = true;
 var spotlight4_bool = true;
 var spotlight1, spotlight2, spotlight3, spotlight4;
+var d_light = true;
+var directionalLight; // DirectionalLight = sun light;
 
 function animate(){
     if(rotateY[0] || rotateX[0])
       rotateAirplane();
     refreshSpotLights();
     render();
+    updateMaterial();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
@@ -35,9 +41,9 @@ function render(){
 }
 
 function createLight(){
-    /*directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
+    directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
     directionalLight.position.set(20, 20, 20);
-    scene.add(directionalLight); */
+    scene.add(directionalLight);
 }
 
 function refreshSpotLights() {
@@ -59,6 +65,15 @@ function refreshSpotLights() {
         scene.remove(spotlight4);
 }
 
+function updateMaterial(){
+  if(lambert){
+    mesh.material = mm[0];
+  }
+  else{
+    mesh.material = mm[1];
+  }
+}
+
 function addSpotlights() {
     spotlight1 = spotlight(10, 0, 10, 0xffffff);
     spotlight2 = spotlight(-10, 0, 10, 0xffffff);
@@ -70,7 +85,7 @@ function rotateAirplane(){
     if(rotateY[0])
       geometry.rotateY(rotateY[1] * Math.PI / 180);
     if(rotateX[0])
-      geometry.rotateX(rotateY[1] * Math.PI / 180);
+      geometry.rotateX(rotateX[1] * Math.PI / 180);
 }
 
 function onResize(){
@@ -82,29 +97,40 @@ function onResize(){
 function onKeyDown(event) {
 
     switch(event.keyCode){
-        case 38: //UP
-            if(!rotateX[0]){
-            rotateX[0] = true;
-            rotateX[1] = 1;
-            }
-            break;
         case 37: //LEFT
-            if(!rotateY[0]){
-            rotateY[0] = true;
-            rotateY[1] = -1;
+            if(!rotateY[0]) {
+                rotateY[0] = true;
+                rotateY[1] = -1;
             }
             break;
-        case 40: //DOWN
-            if(!rotateX[0]){
-            rotateX[0] = true;
-            rotateX[1] = -1;
+        case 38: //UP
+            if(!rotateX[0]) {
+                rotateX[0] = true;
+                rotateX[1] = 1;
             }
             break;
         case 39: //RIGHT
-            if(!rotateY[0]){
-            rotateY[0] = true;
-            rotateY[1] = 1;
+            if(!rotateY[0]) {
+                rotateY[0] = true;
+                rotateY[1] = 1;
             }
+        case 40: //DOWN
+            if(!rotateX[0]) {
+                rotateX[0] = true;
+                rotateX[1] = -1;
+            }
+            break;
+        case 49: //1
+            spotlight1_bool = !spotlight1_bool;
+            break;
+        case 50: //2
+            spotlight2_bool = !spotlight2_bool;
+            break;
+        case 51: //3
+            spotlight3_bool = !spotlight3_bool;
+            break;
+        case 52: //4
+            spotlight4_bool = !spotlight4_bool;
             break;
         case 65: //Tecla 'a' -> alternar entre wireframe e solid color
             scene.traverse(function (node){
@@ -113,19 +139,15 @@ function onKeyDown(event) {
                 }
             });
             break;
-        case 49:
-            spotlight1_bool = !spotlight1_bool;
+        case 71: //Gourand/Phong
+            lambert = !lambert;
             break;
-        case 50:
-            spotlight2_bool = !spotlight2_bool;
+        case 76: //ilumination calculus
             break;
-        case 51:
-            spotlight3_bool = !spotlight3_bool;
-            break;
-        case 52:
-            spotlight4_bool = !spotlight4_bool;
-            break;
-        default: break;
+        case 78: //Tecla 'n' -> alternar entre o modo dia e o modo noite
+            directionalLight.visible = !d_light;
+            d_light = !d_light;
+      default: break;
     }
 }
 
@@ -162,11 +184,17 @@ function init(){
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
-    createScene();
 
+    createScene();
     createCamera();
     createLight();
     render();
+
+    var geometry = new THREE.PlaneGeometry( 500, 40, 32 );
+    var material = new THREE.MeshLambertMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+    var plane = new THREE.Mesh( geometry, material );
+    plane.position.z += 10;
+    scene.add( plane );
 
     window.addEventListener('resize', onResize);
     window.addEventListener('keydown', onKeyDown);

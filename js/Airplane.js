@@ -17,7 +17,7 @@ function createAirplane(){
   geometry.vertices.push(new THREE.Vector3(0,1,0), new THREE.Vector3(0,1.5,-2), new THREE.Vector3(0,3,-2)); //vertical flap
   geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0,2.25,-1.75), new THREE.Vector3(1,2.05,-1.65)); //horizontal flap 1
   geometry.vertices.push(new THREE.Vector3(0,2.25,-1.55), new THREE.Vector3(0, 2.25, -1.75), new THREE.Vector3(-1,2.05, -1.65)); //horizontal flap 2
-  geometry.vertices.push(new THREE.Vector3(-4/5,1.85,0.50), new THREE.Vector3(4/5,1.85,0.50), new THREE.Vector3(0, 0.2, 3.2), new THREE.Vector3(-4/5,0.90,0.50), new THREE.Vector3(4/5,0.90,0.50)); //cockpit
+  //geometry.vertices.push(new THREE.Vector3(-4/5,1.85,0.50), new THREE.Vector3(4/5,1.85,0.50), new THREE.Vector3(0, 0.2, 3.2), new THREE.Vector3(-4/5,0.92,0.50), new THREE.Vector3(4/5,0.92,0.50)); //cockpit
 
   var face = new THREE.Face3(0,1,2);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
@@ -63,7 +63,7 @@ function createAirplane(){
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
   geometry.faces.push(face);
 
-  face = new THREE.Face3(20,21,22);
+  /*face = new THREE.Face3(20,21,22);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
   geometry.faces.push(face);
 
@@ -81,17 +81,24 @@ function createAirplane(){
 
   face = new THREE.Face3(20, 23, 24);
   face.vertexColors[0] = new THREE.Color(0xFFFF00);
-  geometry.faces.push(face);
+  geometry.faces.push(face); */
 
   geometry.computeVertexNormals();
 
   console.log(geometry);
 
-  var material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-  var mesh = new THREE.Mesh(geometry,material)
-  material.FlatShading = true;
-  material.FlatShading = false;
+  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  mm.push(material_lambert);
+  mm.push(material_phong);
+
+  mesh = new THREE.Mesh(geometry,mm[0]);
+  mm[0].FlatShading = true;
+  mm[0].FlatShading = false;
+  mm[1].FlatShading = true;
+  mm[1].FlatShading = false;
   geometry.normalsNeedUpdate = true;
+
   scene.add(mesh);
 
 }
