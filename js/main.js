@@ -14,6 +14,7 @@ var spotlight1, spotlight2, spotlight3, spotlight4;
 var d_light = true;
 var directionalLight; // DirectionalLight = sun light;
 var calculate = true;
+var spotlights = [];
 
 function animate(){
     if(rotateY[0] || rotateX[0])
@@ -27,6 +28,7 @@ function animate(){
 function createScene(){
     scene = new THREE.Scene();
     createAirplane();
+    createSpotlights();
     addSpotlights();
     scene.add(new THREE.AxesHelper( 20 ));
 }
@@ -74,6 +76,7 @@ function updateMaterial(){
 }
 
 function addSpotlights() {
+    createSpotlights(10, 0, 10);
     spotlight1 = spotlight(10, 0, 10, 0xffffff);
     spotlight2 = spotlight(-10, 0, 10, 0xffffff);
     spotlight3 = spotlight(10, 0, -10, 0xffffff);
