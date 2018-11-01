@@ -14,7 +14,6 @@ var spotlight1, spotlight2, spotlight3, spotlight4;
 var d_light = true;
 var directionalLight; // DirectionalLight = sun light;
 var calculate = true;
-var spotlights = [];
 
 function animate(){
     if(rotateY[0] || rotateX[0])
@@ -78,8 +77,11 @@ function updateMaterial(){
 function addSpotlights() {
     createSpotlights(10, 0, 10);
     spotlight1 = spotlight(10, 0, 10, 0xffffff);
+    createSpotlights(-10, 0, 10);
     spotlight2 = spotlight(-10, 0, 10, 0xffffff);
+    createSpotlights(10, 0, -10);
     spotlight3 = spotlight(10, 0, -10, 0xffffff);
+    createSpotlights(-10, 0, -10);
     spotlight4 = spotlight(-10, 0, -10, 0xffffff)
 }
 
@@ -201,7 +203,7 @@ function init(){
     var material = new THREE.MeshLambertMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
     var plane = new THREE.Mesh( geometry, material );
     plane.position.z += 10;
-    scene.add( plane );
+    //scene.add( plane );
 
     window.addEventListener('resize', onResize);
     window.addEventListener('keydown', onKeyDown);
