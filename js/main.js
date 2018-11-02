@@ -1,6 +1,5 @@
 var camera, scene, airplane, directionalLight, mesh;
 var day = true;
-var mm = [];
 var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -14,6 +13,7 @@ var spotlight1, spotlight2, spotlight3, spotlight4;
 var d_light = true;
 var directionalLight;
 var calculate = true;
+var phong = false;
 
 function animate(){
     if(rotateY[0] || rotateX[0])
@@ -69,17 +69,24 @@ function refreshSpotLights() {
 }
 
 function updateMaterial(){
+  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
   if(lambert)
-    airplane.material = mm[0];
+    airplane.material = material_lambert;
   else
-    airplane.material = mm[1];
+    airplane.material = material_phong;
 }
 
 function updateCalculus(){
-  if(calculate)
-    airplane.material = mm[0];
+  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+  var material_basic = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  if(calculate && lambert)
+    airplane.material = material_lambert;
+  else if(calculate && phong)
+    airplane.material = material_phong;
   else
-    airplane.material = mm[2];
+    airplane.material = material_basic;
 }
 
 function addSpotlights() {
@@ -154,6 +161,7 @@ function onKeyDown(event) {
             break;
         case 71: //Gourand/Phong
             lambert = !lambert;
+            phong = !phong;
             break;
         case 76: //Tecla 'l' -> ilumination calculus
             calculate = !calculate;
