@@ -12,7 +12,7 @@ var spotlight3_bool = true;
 var spotlight4_bool = true;
 var spotlight1, spotlight2, spotlight3, spotlight4;
 var d_light = true;
-var directionalLight; // DirectionalLight = sun light;
+var directionalLight;
 var calculate = true;
 
 function animate(){
@@ -21,6 +21,7 @@ function animate(){
     refreshSpotLights();
     render();
     updateMaterial();
+    updateCalculus();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
@@ -44,7 +45,7 @@ function render(){
 
 function createLight(){
     directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2);
-    directionalLight.position.set(20, 20, 20);
+    directionalLight.position.set(0, 20, 0);
     scene.add(directionalLight);
 }
 
@@ -68,10 +69,17 @@ function refreshSpotLights() {
 }
 
 function updateMaterial(){
-  if(lambert && calculate)
-    mesh.material = mm[0];
-  else if(!lambert && calculate)
-    mesh.material = mm[1];
+  if(lambert)
+    airplane.material = mm[0];
+  else
+    airplane.material = mm[1];
+}
+
+function updateCalculus(){
+  if(calculate)
+    airplane.material = mm[0];
+  else
+    airplane.material = mm[2];
 }
 
 function addSpotlights() {
@@ -118,6 +126,7 @@ function onKeyDown(event) {
                 rotateY[0] = true;
                 rotateY[1] = 1;
             }
+            break;
         case 40: //DOWN
             if(!rotateX[0]) {
                 rotateX[0] = true;
@@ -147,10 +156,6 @@ function onKeyDown(event) {
             lambert = !lambert;
             break;
         case 76: //Tecla 'l' -> ilumination calculus
-            if(calculate)
-              mesh.material = mm[2];
-            else
-              mesh.material = mm[0];
             calculate = !calculate;
             break;
         case 78: //Tecla 'n' -> alternar entre o modo dia e o modo noite
@@ -198,12 +203,6 @@ function init(){
     createCamera();
     createLight();
     render();
-
-    var geometry = new THREE.PlaneGeometry( 500, 40, 32 );
-    var material = new THREE.MeshLambertMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-    var plane = new THREE.Mesh( geometry, material );
-    plane.position.z += 10;
-    //scene.add( plane );
 
     window.addEventListener('resize', onResize);
     window.addEventListener('keydown', onKeyDown);
