@@ -15,15 +15,18 @@ function spotlight(x, y, z, color, scene) {
 }
 
 function createSpotlights(x, y, z){
-  var material;
+  var material1, material2;
   var sp = new Objeto();
 
-  material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe:false});
-  sp.addElement(x, y, z, new THREE.SphereGeometry(1, 32, 32), material);
-  sp.addElement(x, y, z, new THREE.ConeGeometry(1, 2, 32), material);
+  material1 = new THREE.MeshBasicMaterial({color: 0x696969, wireframe:false});
+  sp.addElement(x, y, z, new THREE.SphereGeometry(1, 32, 32), material1);
+  material2 = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe:false});
+  sp.addElement(x, y, z, new THREE.ConeGeometry(1, 2, 32), material2);
   sp.children[1].rotateZ(-Math.PI/2);
   sp.children[1].rotateX(Math.PI/4);
   sp.children[1].lookAt(0,500,0);
+  mm2.push(material1);
+  mm2.push(material2);
 
   scene.add(sp);
   return sp;

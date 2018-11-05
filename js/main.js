@@ -1,6 +1,7 @@
 var camera, scene, airplane, directionalLight, mesh;
 var day = true;
 var mm = [];
+var mm2 = [];
 var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
@@ -14,21 +15,21 @@ var spotlight1, spotlight2, spotlight3, spotlight4;
 var d_light = true;
 var directionalLight;
 var calculate = true;
+var sp1, sp2, sp3, sp4;
 
 function animate(){
     if(rotateY[0] || rotateX[0])
       rotateAirplane();
     refreshSpotLights();
-    render();
     updateMaterial();
     updateCalculus();
+    render();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
 function createScene(){
     scene = new THREE.Scene();
     createAirplane();
-    createSpotlights();
     addSpotlights();
     scene.add(new THREE.AxesHelper( 20 ));
 }
@@ -50,29 +51,49 @@ function createLight(){
 }
 
 function refreshSpotLights() {
-    if(spotlight1_bool)
+    if(spotlight1_bool){
         scene.add(spotlight1);
-    else
+        sp1.children[1].material = mm2[1];
+    }
+    else{
         scene.remove(spotlight1);
-    if(spotlight2_bool)
+        sp1.children[1].material = mm2[0];
+    }
+    if(spotlight2_bool){
         scene.add(spotlight2);
-    else
+        sp2.children[1].material = mm2[1];
+    }
+    else{
         scene.remove(spotlight2);
-    if(spotlight3_bool)
+        sp2.children[1].material = mm2[0];
+    }
+    if(spotlight3_bool){
         scene.add(spotlight3);
-    else
+        sp3.children[1].material = mm2[1];
+    }
+    else{
         scene.remove(spotlight3);
-    if(spotlight4_bool)
+        sp3.children[1].material = mm2[0];
+    }
+    if(spotlight4_bool){
         scene.add(spotlight4);
-    else
+        sp4.children[1].material = mm2[1];
+    }
+    else{
         scene.remove(spotlight4);
+        sp4.children[1].material = mm2[0];
+    }
 }
 
 function updateMaterial(){
-  if(lambert)
-    airplane.material = mm[0];
-  else
-    airplane.material = mm[1];
+  if(calculate){
+    if(lambert)
+      airplane.material = mm[0];
+
+    else
+      airplane.material = mm[1];
+
+  }
 }
 
 function updateCalculus(){
@@ -83,14 +104,25 @@ function updateCalculus(){
 }
 
 function addSpotlights() {
-    createSpotlights(10, 0, 10);
+    var spotLightHelper1, spotLightHelper2, spotLightHelper3, spotLightHelper4;
+
+    sp1 = createSpotlights(10, 0, 10);
     spotlight1 = spotlight(10, 0, 10, 0xffffff);
-    createSpotlights(-10, 0, 10);
+    //spotLightHelper1 = new THREE.SpotLightHelper( spotlight1 );
+
+    sp2 = createSpotlights(-10, 0, 10);
     spotlight2 = spotlight(-10, 0, 10, 0xffffff);
-    createSpotlights(10, 0, -10);
+    //spotLightHelper2 = new THREE.SpotLightHelper( spotlight2 );
+
+    sp3 = createSpotlights(10, 0, -10);
     spotlight3 = spotlight(10, 0, -10, 0xffffff);
-    createSpotlights(-10, 0, -10);
-    spotlight4 = spotlight(-10, 0, -10, 0xffffff)
+    //spotLightHelper3 = new THREE.SpotLightHelper( spotlight3 );
+
+    sp4 = createSpotlights(-10, 0, -10);
+    spotlight4 = spotlight(-10, 0, -10, 0xffffff);
+    //spotLightHelper4 = new THREE.SpotLightHelper( spotlight4 );
+
+    //scene.add( spotLightHelper1, spotLightHelper2, spotLightHelper3, spotLightHelper4 );
 }
 
 function rotateAirplane(){
