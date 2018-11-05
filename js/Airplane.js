@@ -82,10 +82,7 @@ function createAirplane(){
   geometry.computeFaceNormals();
   geometry.computeVertexNormals();
 
-  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-
   airplane = new THREE.Mesh(geometry,material_lambert);
-  material_lambert.FlatShading = true;
 
   scene.add(airplane);
 

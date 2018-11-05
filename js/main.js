@@ -14,12 +14,12 @@ var sp1, sp2, sp3, sp4;
 var phong = false;
 var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
 var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+var material_basic = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
 
 function animate(){
     if(rotateX[0] || rotateY[0])
       rotateAirplane();
     refreshSpotLights();
-    updateMaterial();
     updateCalculus();
     render();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
@@ -83,17 +83,7 @@ function refreshSpotLights() {
     }
 }
 
-function updateMaterial(){
-    if(lambert)
-        airplane.material = material_lambert;
-    else
-        airplane.material = material_phong;
-}
-
 function updateCalculus(){
-  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
-  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
-  var material_basic = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
   if(calculate && lambert)
     airplane.material = material_lambert;
   else if(calculate && phong)
