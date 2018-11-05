@@ -14,14 +14,16 @@ var d_light = true;
 var directionalLight;
 var calculate = true;
 var phong = false;
+var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
 
 function animate(){
-    if(rotateY[0] || rotateX[0])
+    if(rotateX[0] || rotateY[0])
       rotateAirplane();
     refreshSpotLights();
-    render();
     updateMaterial();
     updateCalculus();
+    render();
     requestAnimationFrame(animate); //Pede ao browser para correr esta funcao assim que puder
 }
 
@@ -54,14 +56,17 @@ function refreshSpotLights() {
         scene.add(spotlight1);
     else
         scene.remove(spotlight1);
+
     if(spotlight2_bool)
         scene.add(spotlight2);
     else
         scene.remove(spotlight2);
+
     if(spotlight3_bool)
         scene.add(spotlight3);
     else
         scene.remove(spotlight3);
+
     if(spotlight4_bool)
         scene.add(spotlight4);
     else
@@ -69,12 +74,10 @@ function refreshSpotLights() {
 }
 
 function updateMaterial(){
-  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
-  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
-  if(lambert)
-    airplane.material = material_lambert;
-  else
-    airplane.material = material_phong;
+    if(lambert)
+        airplane.material = material_lambert;
+    else
+        airplane.material = material_phong;
 }
 
 function updateCalculus(){
@@ -159,7 +162,7 @@ function onKeyDown(event) {
                 }
             });
             break;
-        case 71: //Gourand/Phong
+        case 71: //Gourand/Phong tecla 'g'
             lambert = !lambert;
             phong = !phong;
             break;
@@ -167,8 +170,7 @@ function onKeyDown(event) {
             calculate = !calculate;
             break;
         case 78: //Tecla 'n' -> alternar entre o modo dia e o modo noite
-            directionalLight.visible = !d_light;
-            d_light = !d_light;
+            directionalLight.visible = !directionalLight.visible;
       default: break;
     }
 }
