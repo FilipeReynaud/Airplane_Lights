@@ -1,10 +1,3 @@
-class SpotLight extends Objeto{
-  constructor(){
-    super();
-  }
-
-}
-
 function spotlight(x, y, z, color, scene) {
     var spotlight = new THREE.SpotLight(color, 1, 1000);
     spotlight.position.set(x, y, z);
@@ -25,10 +18,11 @@ function createSpotlights(x, y, z){
   sp.children[1].rotateZ(-Math.PI/2);
   sp.children[1].rotateX(Math.PI/4);
   sp.children[1].lookAt(0,500,0);
-  mm2.push(material1);
-  mm2.push(material2);
+  mm.push(material1);
+  mm.push(material2);
 
   scene.add(sp);
+  
   return sp;
 
 }

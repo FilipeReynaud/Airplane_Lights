@@ -1,24 +1,22 @@
-var camera, scene, airplane, directionalLight, mesh;
-var day = true;
+var camera, scene, airplane, directionalLight;
 var mm = [];
-var mm2 = [];
 var lambert = true;
 var width = window.innerWidth;
 var height = window.innerHeight;
 var rotateY = [false, 0], rotateX = [false, 0];
-var plane;
 var spotlight1_bool = true;
 var spotlight2_bool = true;
 var spotlight3_bool = true;
 var spotlight4_bool = true;
 var spotlight1, spotlight2, spotlight3, spotlight4;
-var d_light = true;
-var directionalLight;
 var calculate = true;
 var sp1, sp2, sp3, sp4;
+var phong = false;
+var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
 
 function animate(){
-    if(rotateY[0] || rotateX[0])
+    if(rotateX[0] || rotateY[0])
       rotateAirplane();
     refreshSpotLights();
     updateMaterial();
@@ -53,54 +51,55 @@ function createLight(){
 function refreshSpotLights() {
     if(spotlight1_bool){
         scene.add(spotlight1);
-        sp1.children[1].material = mm2[1];
+        sp1.children[1].material = mm[1];
     }
     else{
         scene.remove(spotlight1);
-        sp1.children[1].material = mm2[0];
+        sp1.children[1].material = mm[0];
     }
     if(spotlight2_bool){
         scene.add(spotlight2);
-        sp2.children[1].material = mm2[1];
+        sp2.children[1].material = mm[1];
     }
     else{
         scene.remove(spotlight2);
-        sp2.children[1].material = mm2[0];
+        sp2.children[1].material = mm[0];
     }
     if(spotlight3_bool){
         scene.add(spotlight3);
-        sp3.children[1].material = mm2[1];
+        sp3.children[1].material = mm[1];
     }
     else{
         scene.remove(spotlight3);
-        sp3.children[1].material = mm2[0];
+        sp3.children[1].material = mm[0];
     }
     if(spotlight4_bool){
         scene.add(spotlight4);
-        sp4.children[1].material = mm2[1];
+        sp4.children[1].material = mm[1];
     }
     else{
         scene.remove(spotlight4);
-        sp4.children[1].material = mm2[0];
+        sp4.children[1].material = mm[0];
     }
 }
 
 function updateMaterial(){
-  if(calculate){
     if(lambert)
-      airplane.material = mm[0];
-
+        airplane.material = material_lambert;
     else
-      airplane.material = mm[1];
-
-  }
+        airplane.material = material_phong;
 }
 
 function updateCalculus(){
-  if(calculate)
-    airplane.material = mm[0];
+  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+  var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors,side:THREE.DoubleSide});
+  var material_basic = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
+  if(calculate && lambert)
+    airplane.material = material_lambert;
+  else if(calculate && phong)
+    airplane.material = material_phong;
   else
-    airplane.material = mm[2];
+    airplane.material = material_basic;
 }
 
 function addSpotlights() {
@@ -184,15 +183,15 @@ function onKeyDown(event) {
                 }
             });
             break;
-        case 71: //Gourand/Phong
+        case 71: //Gourand/Phong tecla 'g'
             lambert = !lambert;
+            phong = !phong;
             break;
         case 76: //Tecla 'l' -> ilumination calculus
             calculate = !calculate;
             break;
         case 78: //Tecla 'n' -> alternar entre o modo dia e o modo noite
-            directionalLight.visible = !d_light;
-            d_light = !d_light;
+            directionalLight.visible = !directionalLight.visible;
       default: break;
     }
 }

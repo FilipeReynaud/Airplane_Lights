@@ -2,7 +2,6 @@ class Airplane extends THREE.Geometry{
   constructor(){
     super();
   }
-
 }
 
 function createAirplane(){
@@ -83,29 +82,11 @@ function createAirplane(){
   geometry.computeFaceNormals();
   geometry.computeVertexNormals();
 
-  console.log(geometry);
-
   var material_lambert = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-  var material_phong = new THREE.MeshPhongMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-  var material_basic = new THREE.MeshBasicMaterial({vertexColors: THREE.VertexColors, side:THREE.DoubleSide});
-  mm.push(material_lambert);
-  mm.push(material_phong);
-  mm.push(material_basic);
 
-  airplane = new THREE.Mesh(geometry,mm[0]);
-  mm[0].FlatShading = true;
-  mm[1].FlatShading = true;
+  airplane = new THREE.Mesh(geometry,material_lambert);
+  material_lambert.FlatShading = true;
 
   scene.add(airplane);
 
-}
-
-function createShape(shape, rectLength, rectWidth){
-    shape.moveTo( 0, 0 );
-    shape.lineTo( 0, rectWidth);
-    shape.lineTo( rectLength, rectWidth );
-    shape.lineTo( rectLength, 0 );
-    shape.lineTo( 0, -15 );
-
-    return shape;
 }
